@@ -1,7 +1,7 @@
 <template>
     <div>
         <h2>Lista de Notas</h2>
-        <div v-if="notas.length === 0" class="no-notes">No hay notas.</div>
+        <div v-if="notas.length === 0" class="sin-notas">No hay notas.</div>
         <div v-else>
             <div v-for="(nota, index) in notas" :key="index" class="nota">
                 <h3 class="titulo">{{ nota.titulo }}</h3>
@@ -112,7 +112,7 @@ button:hover {
     background-color: #005cbf;
 }
 
-.no-notes {
+.sin-notas {
     color: #777;
     font-size: 18px;
 }
