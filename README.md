@@ -1,29 +1,3 @@
-# ejemplo_Clase_Notas
+# 📝 ADA 3.1 Aplicacion-Notas
 
-This template should help get you started developing with Vue 3 in Vite.
-
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
-```
-
-### Compile and Hot-Reload for Development
-
-```sh
-npm run dev
-```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
+✏️ **Componente EditarNota**: Se trabajó en un componente para editar las notas, pero no funcionó, la entrega de la ADA 3.1 es en la rama Main. Esta rama es solo para no perder mi intento y poder modificar a futuro.
