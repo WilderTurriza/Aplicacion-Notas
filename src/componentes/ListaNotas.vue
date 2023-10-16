@@ -6,32 +6,19 @@
             <div v-for="(nota, index) in notas" :key="index" class="nota">
                 <h3 class="titulo">{{ nota.titulo }}</h3>
                 <p class="contenido">{{ nota.contenido }}</p>
-                <button @click="editar(index)" >Editar</button>
-                <button @click="eliminar(index)" >Eliminar</button>
+                <button @click="editar(index)" class="button">Editar</button>
+                <button @click="eliminar(index)" class="button">Eliminar</button>
             </div>
         </div>
     </div>
 
-    <div class="modal" v-if="show.show">
-        <div class="modal-content">
-            <h2>Editar Nota</h2>
-            <form @submit.prevent="guardar">
-                <div>
-                    <input v-model="notaEditada.titulo" placeholder="Título" required />
-                    <textarea v-model="notaEditada.contenido" placeholder="Contenido" required
-                        style="resize: none;"></textarea>
-                    <button  type="submit">Guardar</button>
-                    <button @click="closeModal">Cancelar</button>
-                </div>
+    <EditarNota :show="showModal" :title="titulo" :note="contenido" :id="id_nota" @cerrar="cerrarDialog" @guardar="guardarInfo"></EditarNota>
 
-            </form>
-        </div>
-    </div>
 </template>
 
 <script setup>
-import { defineProps, ref } from 'vue';
-import { reactive } from 'vue';
+import { defineProps } from 'vue';
+import EditarNota from './EditarNota.vue';
 
 const props = defineProps({
     notas: {
@@ -39,20 +26,24 @@ const props = defineProps({
         default: []
     }
 })
-let show = reactive({ show: false });
-let notaEditada = { titulo: '', contenido: '' };
-let id = null;
+let showModal = false;
+let titulo = "";
+let contenido = "";
+let id_nota = null;
 
 const emits = defineEmits(['eliminarNota', 'editarNota'])
 
 function editar(index) {
     console.log("Editar nota:", index);
     const infoNota = { ...props.notas[index] };
-    notaEditada.titulo = infoNota.titulo;
-    notaEditada.contenido = infoNota.contenido;
-    id = index;
-    show.show = true;
-    console.log(show);
+    titulo = infoNota.titulo;
+    contenido = infoNota.contenido;
+    id_nota = index; 
+    showModal = true; 
+    console.log("show:", showModal);
+    console.log("titulo:", titulo);
+    console.log("contenido:", contenido);
+
 }
 
 
@@ -62,15 +53,14 @@ function eliminar(index) {
     }
 }
 
-function closeModal() {
-    show.show = false;
+function cerrarDialog() {
+    showModal = false;
+    console.log(showModal)
 }
-function guardar() {
-    show.show = false;
-    closeModal()
-    console.log(id)
+function guardarInfo(id,notaEditada) {
+    console.log(notaEditada)
     emits('editarNota', id, notaEditada);
-    notaEditada = { titulo: '', contenido: '' };
+    showModal = false;
 
 }
 </script>
@@ -97,7 +87,7 @@ function guardar() {
     color: #555;
 }
 
-button {
+.button {
     background-color: #0366d6;
     color: #fff;
     padding: 6px 12px;
@@ -108,7 +98,7 @@ button {
     margin-right: 10px;
 }
 
-button:hover {
+.button:hover {
     background-color: #005cbf;
 }
 
@@ -126,6 +116,7 @@ button:hover {
     top: 0;
     width: 100%;
     height: 100%;
+    background-color: rgba(0, 0, 0, 0);
     border-radius: 3rem;
 }
 
@@ -138,32 +129,30 @@ button:hover {
     border-radius: 0.2rem;
 }
 
-input,
-textarea,
-button {
-    margin-top: 15px;
+.input,
+.textarea,
+.button {
+  margin-top: 15px;
 }
 
-input,
-textarea {
-    width: 95%;
-    padding: 10px;
-    border: 1px solid #d1d5da;
-    border-radius: 6px;
-    background-color: #fff;
-    font-size: 16px;
+.input,
+.textarea {
+  width: 95%;
+  padding: 10px;
+  border: 1px solid #d1d5da;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 16px;
 }
 
-input::placeholder,
-textarea::placeholder {
-    color: #8b949e;
+.input::placeholder,
+.textarea::placeholder {
+  color: #8b949e;
 }
 
-input:focus,
-textarea:focus {
-    border-color: #0366d6;
-    box-shadow: 0 0 5px rgba(3, 102, 214, 0.3);
+.input:focus,
+.textarea:focus {
+  border-color: #0366d6;
+  box-shadow: 0 0 5px rgba(3, 102, 214, 0.3);
 }
-
-
 </style>
